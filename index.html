@@ -1,0 +1,84 @@
+<!DOCTYPE html >
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>无标题文档</title>
+		<link rel="stylesheet" href="css/dahuiji.css" />
+		<script src="js/Game.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/Myplane.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/Otherplane.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/biu.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+
+			//选择难度界面
+			onload=function(){
+				var OUl = document.getElementById("options");
+				var gameOverCover = document.getElementById("gameOverCover");
+				var pauseCover = document.getElementById("pauseCover");
+				window.score = document.getElementById("gameScore");
+				window.hp = document.getElementById("hp");
+				var reStart = document.getElementById("restart");
+				var close = document.getElementById("close");
+				OUl.addEventListener("click",function (e){
+					var e = e || event;
+					var lv = e.target.getAttribute("value");
+					window.ge=new Game();
+					ge.start(lv);
+				})
+
+				//重新开始按钮
+				reStart.addEventListener("click", function (){
+					window.location.reload();
+				})
+
+				//关闭页面按钮
+				close.addEventListener("click", function (){
+					window.close();
+				})
+
+				//暂停效果
+				document.addEventListener("keypress",function (e){
+					var code = e.keyCode || e.which;
+					console.log(code)
+					if(code == 32){
+						Game.pause = !Game.pause;
+						if(!Game.pause == false){
+							pauseCover.style.display = "block";
+						}else{
+							pauseCover.style.display = "none";
+						}
+					}
+				})
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="body_main" class="main">
+			<ul id="options" class="options">
+				<li value="4">困难</li>
+				<li value="3">中等</li>
+				<li value="2">简单</li>
+				<li value="1">春哥附体</li>
+			</ul>
+			<div id="gameOverCover">
+				<span>游戏结束</span>
+				<input type="button" id="restart" value="重新开始" />
+				<input type="button" id="close" value="关闭页面" />
+			</div>
+			<div id="pauseCover">
+				<span>游戏暂停</span>
+			</div>
+			<div id="gameScoreBox">
+				分数:
+				<span id="gameScore">0</span>
+			</div>
+			<div id="hpBox">
+				血量:
+				<span id="hp">10</span>
+			</div>
+		</div>
+	</body>
+
+</html>
